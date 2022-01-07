@@ -14,6 +14,8 @@ namespace Synth.UI {
 			Key.Z, Key.S, Key.X, Key.D, Key.C, Key.V, Key.G, Key.B, Key.H, Key.N, Key.J, Key.M,
 			Key.Q, Key.D2, Key.W, Key.D3, Key.E, Key.R, Key.D5, Key.T, Key.D6, Key.Y, Key.D7, Key.U
 		};
+
+		private const int keysInOctave = 12;
 		
 		private enum KeyButtons {
 			C1, CS1, D1, DS1, E1, F1, FS1, G1, GS1, A1, AS1, B1,
@@ -33,16 +35,16 @@ namespace Synth.UI {
 			var keyIndex = keyboard.IndexOf(e.Key);
 			if (keyIndex != -1)
 				controller.NoteDown(
-					keyIndex + ((int) SliderOsc1Octave.Value - 1) * 12 + 3,
-					keyIndex + ((int) SliderOsc2Octave.Value - 1) * 12 + 3);
+					keyIndex + ((int) SliderOsc1Octave.Value - 1) * keysInOctave + 3,
+					keyIndex + ((int) SliderOsc2Octave.Value - 1) * keysInOctave + 3);
 		}
 
 		private void OnKeyUp(object sender, KeyEventArgs e) {
 			var keyIndex = keyboard.IndexOf(e.Key);
 			if (keyIndex != -1)
 				controller.NoteUp(
-					keyIndex + ((int) SliderOsc1Octave.Value - 1) * 12 + 3,
-					keyIndex + ((int) SliderOsc2Octave.Value - 1) * 12 + 3);
+					keyIndex + ((int) SliderOsc1Octave.Value - 1) * keysInOctave + 3,
+					keyIndex + ((int) SliderOsc2Octave.Value - 1) * keysInOctave + 3);
 		}
 		
 		private void OnScreenKeyDown(object sender, MouseButtonEventArgs e) {

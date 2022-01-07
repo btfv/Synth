@@ -40,7 +40,7 @@ namespace Synth {
 			get => delayModule?.Enabled ?? false;
 			set => delayModule.Enabled = value;
 		}
-		
+
 		public float Osc1Volume {
 			get => volumeControl1?.Volume ?? 0.25f;
 			set {
@@ -66,9 +66,11 @@ namespace Synth {
 			set => filterModule.Type = value;
 		}
 
-		public int Osc1Octave { get; set; } = 3;
+		private int _Osc1Octave = 3;
+		public int Osc1Octave { get => _Osc1Octave; set { StopAllSignals(); _Osc1Octave = value; } }
 
-		public int Osc2Octave { get; set; } = 3;
+		private int _Osc2Octave = 3;
+		public int Osc2Octave { get => _Osc2Octave; set { StopAllSignals(); _Osc2Octave = value; } }
 
 		public float Attack { get; set; } = 0.01f;
 
@@ -187,14 +189,27 @@ namespace Synth {
 		}
 
 		public void NoteUp(int keyIndex1, int keyIndex2) {
-			if (keyIndex1 >= 0 && keyIndex1 < signals.GetLength(1) && signals[0, keyIndex1] != null) {
-				signals[0, keyIndex1].Stop();
-				signals[0, keyIndex1] = null;
-			}
+			stopSignal(0, keyIndex1);
+			stopSignal(1, keyIndex2);
+		}
 
-			if (keyIndex2 >= 0 && keyIndex2 < signals.GetLength(1) && signals[1, keyIndex2] != null) {
-				signals[1, keyIndex2].Stop();
-				signals[1, keyIndex2] = null;
+		private void stopSignal(int oscIndex, int keyIndex)
+        {
+			if (keyIndex >= 0 && keyIndex < signals.GetLength(1) && signals[oscIndex, keyIndex] != null)
+			{
+				signals[oscIndex, keyIndex].Stop();
+				signals[oscIndex, keyIndex] = null;
+			}
+		}
+
+		public void StopAllSignals()
+        {
+			for (int oscIndex = 0; oscIndex < signals.GetLength(0); oscIndex++)
+			{
+				for (int keyIndex = 0; keyIndex < signals.GetLength(1); keyIndex++)
+				{
+					stopSignal(oscIndex, keyIndex);
+				}
 			}
 		}
 
