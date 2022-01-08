@@ -228,8 +228,8 @@ namespace Synth.UI {
 
         private void OnSavePresetClick(object sender, RoutedEventArgs e)
         {
-			string title = textboxPresetName.Text;
-			var stringPattern = new Regex(@"\w+");
+			string title = textboxPresetName.Text.Trim();
+			var stringPattern = new Regex(@"^[a-zA-Z0-9_\s]+");
 			if (title.Length > 0 && title.Length <= 24 && stringPattern.IsMatch(title))
             {	
 				Preset p = controller.ExportPreset();
@@ -238,7 +238,7 @@ namespace Synth.UI {
 			}
             else
             {
-				MessageBox.Show("Max title length: 24 symbols. It should contain only letters and numbers", "Error");
+				MessageBox.Show("Title length: from 1 to 24 symbols. It should contain only letters and numbers", "Error");
             }
         }
 		private void OnLoadPresetClick(object sender, RoutedEventArgs e)

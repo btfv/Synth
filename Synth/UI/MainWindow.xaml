@@ -13,7 +13,7 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="1.5*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.2*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -671,13 +671,20 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Row="0" Grid.Column="0">
-                    <TextBox Name="textboxPresetName"></TextBox>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" VerticalAlignment="Top">Preset name:</Label>
+                        <TextBox Name="textboxPresetName" VerticalAlignment="Center" FontSize="16" Grid.Row="1"></TextBox>
+                    </Grid>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="1">
                     <Button Name="btnSavePreset" Click="OnSavePresetClick">New preset</Button>

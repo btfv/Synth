@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.IO;
-using System;
+using System.Text.RegularExpressions;
 
 namespace Synth.UI
 {
@@ -8,7 +8,6 @@ namespace Synth.UI
     {
         private OpenFileDialog openFileDialog;
         private System.Xml.Serialization.XmlSerializer x;
-        string presetFolder;
 
         public FileDialog()
         {
@@ -18,7 +17,6 @@ namespace Synth.UI
             openFileDialog.Filter = "XML Files (*.xml)|*.xml";
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
-            presetFolder = SettingsConfig.getInstance().PresetsFolder;
         }
 
         public Preset GetPreset()
@@ -39,7 +37,19 @@ namespace Synth.UI
 
         public void SavePreset(Preset p, string title)
         {
-            FileStream file = File.Create(presetFolder + "\\" + title + ".xml");
+            title = Regex.Replace(title, @"\s+", "");
+
+            string presetFolder = SettingsConfig.getInstance().PresetsFolder;
+            string path = presetFolder + "\\" + title + ".xml";
+            if (File.Exists(path) )
+            {
+                DialogResult dialogResult = MessageBox.Show("You will overwrite existing preset.\nAre you sure?", "Warning!", MessageBoxButtons.YesNo);
+                if(dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            FileStream file = File.Create(path);
             x.Serialize(file, p);
         }
     }
