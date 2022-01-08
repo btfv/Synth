@@ -24,7 +24,7 @@ namespace Synth
 
         public string PresetsFolder
         {
-            get => config.AppSettings.Settings["PresetsFolder"].Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            get => config.AppSettings.Settings["PresetsFolder"]?.Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             set
             {
                 if (value != null)
