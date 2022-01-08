@@ -5,10 +5,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Synth.Filter;
 using Synth.Module;
+using System.Text.RegularExpressions;
 
 namespace Synth.UI {
 	public partial class MainWindow : Window {
 		private readonly Controller controller;
+		private readonly FileDialog fileDialog;
 
 		private readonly List<Key> keyboard = new List<Key> {
 			Key.Z, Key.S, Key.X, Key.D, Key.C, Key.V, Key.G, Key.B, Key.H, Key.N, Key.J, Key.M,
@@ -27,7 +29,9 @@ namespace Synth.UI {
 		public MainWindow()
 		{
 			controller = new Controller();
+			fileDialog = new FileDialog();
 			InitializeComponent();
+			controller.OnPropertyChanged += SyncValuesFromController;
 			DataContext = this;
 		}
 		
@@ -220,6 +224,69 @@ namespace Synth.UI {
 		private void OnDistortMixChange(object sender, RoutedPropertyChangedEventArgs<double> e) {
 			controller.DistortMix = (float) SliderDistortMix.Value;
 			LabelDistortMix.Content = $"{controller.DistortMix}";
+		}
+
+        private void OnSavePresetClick(object sender, RoutedEventArgs e)
+        {
+			string title = textboxPresetName.Text;
+			var stringPattern = new Regex(@"\w+");
+			if (title.Length > 0 && title.Length <= 24 && stringPattern.IsMatch(title))
+            {	
+				Preset p = controller.ExportPreset();
+				p.Title = title;
+				fileDialog.SavePreset(p, title);
+			}
+            else
+            {
+				MessageBox.Show("Max title length: 24 symbols. It should contain only letters and numbers", "Error");
+            }
+        }
+		private void OnLoadPresetClick(object sender, RoutedEventArgs e)
+        {
+			Preset p = fileDialog.GetPreset();
+            if (p != null)
+            {
+				controller.ImportPreset(p);
+				textboxPresetName.Text = p.Title;
+			}
+        }
+
+		private void SyncValuesFromController(object sender, EventArgs e)
+        {
+			Osc1EnableCheckbox.IsChecked = controller.Osc1Enable;
+			SliderOsc1Volume.Value = controller.Osc1Volume;
+			ComboBoxOsc1Waveform.SelectedItem = controller.Osc1Waveform;
+			SliderOsc1Octave.Value = controller.Osc1Octave;
+
+			Osc2EnableCheckbox.IsChecked = controller.Osc2Enable;
+			SliderOsc2Volume.Value = controller.Osc2Volume;
+			ComboBoxOsc2Waveform.SelectedItem = controller.Osc2Waveform;
+			SliderOsc2Octave.Value = controller.Osc2Octave;
+
+			SliderAttack.Value = controller.Attack;
+			SliderSustain.Value = controller.Sustain;
+			SliderDecay.Value = controller.Decay;
+			SliderRelease.Value = controller.Release;
+
+			FilterEnableCheckbox.IsChecked = controller.FilterEnable;
+			ComboBoxFilterType.SelectedItem = controller.FilterType;
+			SliderFilterCutoff.Value = controller.Cutoff;
+			SliderFilterBandwidth.Value = controller.Bandwidth;
+
+			DelayEnableCheckbox.IsChecked = controller.DelayEnable;
+			SliderDelay.Value = controller.Delay;
+			SliderFeedback.Value = controller.Feedback;
+			SliderMix.Value = controller.Mix;
+			SliderWet.Value = controller.Wet;
+			SliderDry.Value = controller.Dry;
+
+			TremoloEnableCheckbox.IsChecked = controller.TremoloEnable;
+			SliderTremoloFrequency.Value = controller.TremoloFrequency;
+			SliderTremoloAmplitude.Value = controller.TremoloAmplitude;
+
+			DistortEnableCheckbox.IsChecked = controller.DistortEnable;
+			SliderDistortAmount.Value = controller.DistortAmount;
+			SliderDistortMix.Value = controller.DistortMix;
 		}
 	}
 }

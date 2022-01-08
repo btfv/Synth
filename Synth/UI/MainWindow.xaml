@@ -10,9 +10,10 @@
         KeyUp="OnKeyUp">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -42,7 +43,8 @@
 		                  IsChecked="True"
 		                  Content="Enable"
 		                  Checked="OnOsc1EnableCheck"
-		                  Unchecked="OnOsc1EnableUncheck"/>
+		                  Unchecked="OnOsc1EnableUncheck"
+                          Name="Osc1EnableCheckbox"/>
 		        
 		        <!-- Volume -->
 		        <Label Name="LabelOsc1Volume"
@@ -96,7 +98,8 @@
 		        <CheckBox Grid.Row="0" 
 		                  Content="Enable"
 		                  Checked="OnOsc2EnableCheck"
-		                  Unchecked="OnOsc2EnableUncheck"/>
+		                  Unchecked="OnOsc2EnableUncheck"
+                          Name="Osc2EnableCheckbox"/>
 		        
 		        <!-- Volume -->
 		        <Label Name="LabelOsc2Volume"
@@ -212,7 +215,7 @@
 	            
 	            <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
 	                      Content="Enable"
-	                      Checked="OnFilterEnableCheck" Unchecked="OnFilterEnableUncheck"/>
+	                      Checked="OnFilterEnableCheck" Unchecked="OnFilterEnableUncheck" Name="FilterEnableCheckbox"/>
 	            
 	            <ComboBox Name="ComboBoxFilterType" 
 	                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
@@ -272,7 +275,7 @@
 	            
 	            <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
 	                      Content="Enable"
-	                      Checked="OnDelayEnableCheck" Unchecked="OnDelayEnableUncheck"/>
+	                      Checked="OnDelayEnableCheck" Unchecked="OnDelayEnableUncheck" Name="DelayEnableCheckbox"/>
                 
                 <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"
                        Content="Delay"/>
@@ -348,7 +351,7 @@
 	            
 	            <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
 	                      Content="Enable"
-	                      Checked="OnTremoloEnableCheck" Unchecked="OnTremoloEnableUncheck"/>
+	                      Checked="OnTremoloEnableCheck" Unchecked="OnTremoloEnableUncheck" Name="TremoloEnableCheckbox"/>
 	            
 	            <Label Grid.Row="1" Grid.Column="0"
 	                   HorizontalAlignment="Center"
@@ -397,7 +400,7 @@
 	            
 	            <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
 	                      Content="Enable"
-	                      Checked="OnDistortEnableCheck" Unchecked="OnDistortEnableUncheck"/>
+	                      Checked="OnDistortEnableCheck" Unchecked="OnDistortEnableUncheck" Name="DistortEnableCheckbox" />
 	            
 	            <Label Grid.Row="1" Grid.Column="0"
 	                   HorizontalAlignment="Center"
@@ -649,6 +652,39 @@
 	                    HorizontalAlignment="Center" Background="Black" Width="20"
 	                    PreviewMouseDown="OnScreenKeyDown" PreviewMouseUp="OnScreenKeyUp"/>
 
+            </Grid>
+        </GroupBox>
+
+        <!-- Presets -->
+        <GroupBox Grid.Row="3"
+                  Grid.Column="0" 
+                  Grid.ColumnSpan="5" 
+                  Header="Presets"
+                  Name="PresetsGroupBox">
+            <Grid>
+                <Grid.Resources >
+                    <Style TargetType="Border" >
+                        <Setter Property="Padding" Value="5,5,5,5" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="0">
+                    <TextBox Name="textboxPresetName"></TextBox>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Button Name="btnSavePreset" Click="OnSavePresetClick" >New preset</Button>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Button Name="btnLoadPreset" Click="OnLoadPresetClick">Load preset</Button>
+                </Border
             </Grid>
         </GroupBox>
     </Grid>
