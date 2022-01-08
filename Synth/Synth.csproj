@@ -6,6 +6,7 @@
         <UseWPF>true</UseWPF>
         <StartupObject>Synth.App</StartupObject>
         <UseWindowsForms>true</UseWindowsForms>
+        <ApplicationIcon>logo.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
