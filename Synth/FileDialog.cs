@@ -18,7 +18,7 @@ namespace Synth.UI
             openFileDialog.Filter = "XML Files (*.xml)|*.xml";
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
-            presetFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            presetFolder = SettingsConfig.getInstance().PresetsFolder;
         }
 
         public Preset GetPreset()

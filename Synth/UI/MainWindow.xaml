@@ -680,11 +680,14 @@
                     <TextBox Name="textboxPresetName"></TextBox>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="1">
-                    <Button Name="btnSavePreset" Click="OnSavePresetClick" >New preset</Button>
+                    <Button Name="btnSavePreset" Click="OnSavePresetClick">New preset</Button>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="2">
                     <Button Name="btnLoadPreset" Click="OnLoadPresetClick">Load preset</Button>
-                </Border
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Button Name="btnOpenSettings" Click="OnOpenSettingsWindowClick">Settings</Button>
+                </Border>
             </Grid>
         </GroupBox>
     </Grid>

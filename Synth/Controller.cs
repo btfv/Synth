@@ -300,8 +300,6 @@ namespace Synth
             filterModule = new FilterModule(delayModule);
             mixerAll.AddMixerInput(volumeControl1);
             mixerAll.AddMixerInput(volumeControl2);
-
-
         }
 
         public void NoteDown(int keyIndex1, int keyIndex2)

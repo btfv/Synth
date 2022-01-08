@@ -288,5 +288,11 @@ namespace Synth.UI {
 			SliderDistortAmount.Value = controller.DistortAmount;
 			SliderDistortMix.Value = controller.DistortMix;
 		}
+
+		private void OnOpenSettingsWindowClick(object sender, EventArgs e)
+        {
+			SettingsWindow settingsWindow = new SettingsWindow();
+			settingsWindow.Show();
+		}
 	}
 }
